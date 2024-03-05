@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import './app.scss';
 import Header from '../header/header';
 import Hero from '../hero/hero';
-import {SwapiServiceProvider} from "../swapi-service-context";
 import ErrorBoundary from "../error-boundary/error-boundary";
 
 import TestServices from '../../services/test-services';
@@ -18,16 +17,6 @@ export default class App extends Component {
         hasError: false,
     }
 
-    // onServiceChange = () => {
-    //     this.setState(({swapiService}) => {
-    //         const Service = swapiService instanceof SwapiService ?
-    //             DummySwapiService : SwapiService;
-    //         return {
-    //             swapiService: new Service()
-    //         };
-    //     })
-    // }
-
     render() {
         const testServices = new TestServices();
         testServices.getAllCardResource().then((body) => {
@@ -36,18 +25,16 @@ export default class App extends Component {
 
         return (
             <ErrorBoundary>
-                <SwapiServiceProvider value={this.state.swapiService}>
-                    <div>
-                        <Header onServiceChange={this.onServiceChange}/>
-                        <div className="base">
-                            <main className="wrapper">
-                                <Hero/>
-                                <CardList/>
-                                <FormPost/>
-                            </main>
-                        </div>
+                <div>
+                    <Header onServiceChange={this.onServiceChange}/>
+                    <div className="base">
+                        <main className="wrapper">
+                            <Hero/>
+                            <CardList/>
+                            <FormPost/>
+                        </main>
                     </div>
-                </SwapiServiceProvider>
+                </div>
             </ErrorBoundary>
         )
     }
