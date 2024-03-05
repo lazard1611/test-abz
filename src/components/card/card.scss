@@ -1,0 +1,52 @@
+@import '../../main';
+
+.card {
+	padding: 2rem;
+	text-align: center;
+	background-color: $white;
+	border-radius: 1rem;
+}
+
+.card > * {
+	font-size: 1.6rem;
+	font-weight: 400;
+	line-height: 1.62;
+}
+
+.card__pic {
+	width: 7rem;
+	height: 7rem;
+	margin: 0 auto;
+
+	overflow: hidden;
+	border-radius: 50%;
+
+	img {
+		display: block;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	&:not(:last-child) {
+		margin-bottom: 2rem;
+	}
+}
+
+.card__name {
+	&:not(:last-child) {
+		margin-bottom: 2rem;
+	}
+}
+
+.card__position {
+
+}
+
+.card__email {
+
+}
+
+.card__phone {
+
+}

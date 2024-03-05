@@ -1,0 +1,31 @@
+@import '../../main';
+
+.cards_list {
+	padding-top: 14rem;
+}
+
+.cards_list__wrap {
+	display: grid;
+	gap: 2.9rem;
+
+	&:not(:last-child) {
+		margin-bottom: 5rem;
+	}
+
+	@include bp($laptop, min) {
+		grid-template-columns: repeat(3, 1fr);
+	}
+
+	@include bp($laptop - 1, $tablet) {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	@include bp($tablet - 1) {
+		grid-template-columns:  1fr;
+	}
+}
+
+.cards_list__btn_wrap {
+	text-align: center;
+}
+
