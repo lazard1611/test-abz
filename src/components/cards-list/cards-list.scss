@@ -5,23 +5,34 @@
 }
 
 .cards_list__wrap {
-	display: grid;
-	gap: 2.9rem;
 
 	&:not(:last-child) {
 		margin-bottom: 5rem;
 	}
 
+	@include bp($tablet, min) {
+		display: flex;
+		flex-wrap: wrap;
+
+		margin: 0 -2.9rem -2.9rem 0;
+	}
+}
+
+.cards_list__item {
 	@include bp($laptop, min) {
-		grid-template-columns: repeat(3, 1fr);
+		padding: 0 2.9rem 2.9rem 0;
+		width: 33.333%;
 	}
 
 	@include bp($laptop - 1, $tablet) {
-		grid-template-columns: repeat(2, 1fr);
+		padding: 0 2.9rem 2.9rem 0;
+		width: 50%;
 	}
 
-	@include bp($tablet - 1) {
-		grid-template-columns:  1fr;
+	&:not(:last-child) {
+		@include bp($tablet - 1) {
+			margin-bottom: 2rem;
+		}
 	}
 }
 

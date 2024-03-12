@@ -47,9 +47,17 @@
 .hero__wrap {
 	z-index: 1;
 	position: relative;
-	max-width: 38rem;
+	max-width: calc(38rem + (var(--gl-indent))*2);
 	margin: 0 auto;
 
 	color: white;
 	text-align: center;
+
+	@include bp($tablet, min) {
+		padding: 0 var(--gl-indent);
+	}
+
+	@include bp($tablet - 1) {
+		padding: 2rem var(--gl-indent) 5rem;
+	}
 }

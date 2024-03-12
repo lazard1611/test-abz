@@ -5,7 +5,6 @@ export default class ErrorButton extends Component {
         renderError: false
     }
 
-
     render() {
         if (this.state.renderError) {
             this.foo.bar = 0
@@ -13,7 +12,7 @@ export default class ErrorButton extends Component {
 
         return (
             <button
-                className="button button--red_color"
+                className="button"
                 onClick={() => this.setState({renderError: true})}
             >
                 Throw Error
