@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/test-abz/static/css/main.47257493.css",
+    "main.js": "/test-abz/static/js/main.383af305.js",
+    "static/media/hero-bg.jpg": "/test-abz/static/media/hero-bg.1723f4faa20303309f84.jpg",
+    "static/media/404-pages.webp": "/test-abz/static/media/404-pages.4b0023f3a518221b03dc.webp",
+    "static/media/Nunito-Regular.woff": "/test-abz/static/media/Nunito-Regular.ee2522fd015b79a31505.woff",
+    "static/media/Nunito-Regular.woff2": "/test-abz/static/media/Nunito-Regular.e46bfea85c5c95cdff21.woff2",
+    "static/media/placeholder.svg": "/test-abz/static/media/placeholder.fb98cf13a87225efe558669bdc541ac7.svg",
+    "index.html": "/test-abz/index.html",
+    "main.47257493.css.map": "/test-abz/static/css/main.47257493.css.map",
+    "main.383af305.js.map": "/test-abz/static/js/main.383af305.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.47257493.css",
+    "static/js/main.383af305.js"
+  ]
+}
