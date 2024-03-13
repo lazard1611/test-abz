@@ -3,11 +3,12 @@ import Heading from "../heading/heading";
 import FormInput from "../form-input/form-input";
 import FormRadio from "../form-radio/form-radio";
 import FormFile from "../form-file/form-file";
-// import Button from "../button/button";
+import Button from "../button/button";
 import './form-post.scss';
 import TestServices from "../../services/test-services";
 import Spinner from '../../components/spiner/spinner';
 import { useForm } from 'react-hook-form';
+import Success from "../success/success";
 
 const FormPost = () => {
     const dataForm = [
@@ -70,7 +71,8 @@ const FormPost = () => {
             email: '',
             phone: '',
             radio: ''
-        }
+        },
+        mode: 'onSubmit'
     })
 
     const {
@@ -100,17 +102,14 @@ const FormPost = () => {
             formData.append('photo', fileInput.files[0]);
         }
 
-        setIsPending(true);
-
         const testServices = new TestServices();
         testServices
             .submitForm(formData, token)
             .then((data) => {
-                console.log('Обробка відповіді', data);
                 if (data.success) {
-                    console.log('Обробка успішної відповіді', data);
+                    setIsPending(true);
                 } else {
-                    // Обробка помилок від сервера
+                    console.log('Обробка не вдалої відповіді', data.message);
                 }
             })
             .catch((error) => {
@@ -124,7 +123,7 @@ const FormPost = () => {
 
     return (
         <section className='section form_post'>
-            <div className="form_post__container">
+            {!isPending && <div className="form_post__container">
                 <Heading label='Working with POST request'/>
                 <form className='form_post__wrap' onSubmit={handleSubmit(onSubmitBtn, onError)} noValidate>
                     <div className="form_inputs__list">
@@ -150,12 +149,12 @@ const FormPost = () => {
                     <FormFile/>
 
                     <div className="form_post__btn_wrap">
-                        {!isPending && <button className='btn' type='submit'>Sign up</button>}
-                        {isPending && <button disabled className='btn' type='submit'>Sign up</button>}
-                        {/*<Button label='Sign up' type='submit'/>*/}
+                        <Button label='Sign up' type='submit'/>
                     </div>
                 </form>
-            </div>
+            </div>}
+
+            {isPending && <Success label='User successfully registered'/>}
         </section>
     )
 }

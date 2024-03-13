@@ -33,10 +33,6 @@ export default class TestServices {
             body: data,
         });
 
-        if (!response.ok) {
-            throw new Error(`Could not submit form, received ${response.status}`);
-        }
-
         return await response.json();
     }
 

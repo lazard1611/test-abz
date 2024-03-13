@@ -24,8 +24,8 @@ class Header extends Component {
                 <div className="header__in">
                     <Logo/>
                     <div className="header__buttons">
-                        <Button label='Users'/>
-                        <Button label='Sign up'/>
+                        <Button label='Users' type="button"/>
+                        <Button label='Sign up' type="button"/>
                     </div>
                 </div>
             </header>
