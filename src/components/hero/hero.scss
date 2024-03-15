@@ -50,11 +50,12 @@
 	max-width: calc(38rem + (var(--gl-indent))*2);
 	margin: 0 auto;
 
+
 	color: white;
 	text-align: center;
 
 	@include bp($tablet, min) {
-		padding: 0 var(--gl-indent);
+		padding: 2rem var(--gl-indent);
 	}
 
 	@include bp($tablet - 1) {

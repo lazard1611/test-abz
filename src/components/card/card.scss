@@ -47,10 +47,39 @@
 
 }
 
-.card__email {
+.card__phone {
 
 }
 
-.card__phone {
+.card__email {
+	position: relative;
+	overflow: visible;
+	cursor: pointer;
 
+	&:after {
+		--scale: 0;
+		content: attr(data-tooltip);
+		z-index: 10;
+		position: absolute;
+		top: 0;
+		left: 50%;
+
+		display: block;
+		padding: .3rem 1.6rem;
+		line-height: 1.62;
+		text-align: left;
+
+		color: $white;
+		background: $black87;
+
+		transition: transform 0.3s ease, color 0.3s ease;
+		transform-origin: top center;
+		transform: translate(-50%, 100%) scale(var(--scale));
+		border-radius: $glRadius;
+		will-change: scale;
+	}
+
+	&:hover:after {
+		--scale: 1;
+	}
 }

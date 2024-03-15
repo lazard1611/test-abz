@@ -1,7 +1,8 @@
-import React from "react";
+import React, {useState}  from "react";
 import './form-input.scss';
 
-const FormInput = ({ field, watchedFields, register, errors }) => {
+const FormInput = ({ field, register, errors, watchedFields }) => {
+
     return (
         <div className={`form_input__element ${watchedFields[field.id].trim() !== '' ? 'focus' : ''} ${errors[field.id] ? 'error' : ''}`}>
             <input
@@ -11,7 +12,7 @@ const FormInput = ({ field, watchedFields, register, errors }) => {
                 {...register(field.id, field.validations)}
             />
             <label htmlFor={field.id} className='form_input__label'>{field.label}</label>
-            <div className="form_input__error">{errors[field.id]?.message}</div>
+            {errors[field.id]?.message && <div className="form_input__error">{errors[field.id]?.message}</div>}
             {field.message && <div className="form_input__messages">{field.message}</div>}
         </div>
     );

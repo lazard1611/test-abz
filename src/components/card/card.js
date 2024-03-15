@@ -12,7 +12,7 @@ const Card = ({ userData }) => {
             </picture>
             <div className="card__name">{name}</div>
             <div className="card__position">{position}</div>
-            <div className="card__email">{email}</div>
+            <div className="card__email" data-tooltip={email}>{email}</div>
             <div className="card__phone">{phone}</div>
         </div>
     )

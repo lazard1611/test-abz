@@ -28,5 +28,6 @@
 	&:disabled {
 		background-color: $gray_2;
 		color: $white;
+		pointer-events: none;
 	}
 }

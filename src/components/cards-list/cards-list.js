@@ -6,6 +6,7 @@ import Button from "../button/button";
 import Spinner from '../../components/spiner/spinner';
 import ErrorBoundary from "../error-boundary/error-boundary";
 import TestServices from '../../services/test-services';
+import animation from "../animation/animation";
 
 const CardList = () => {
     const data = {
@@ -20,6 +21,7 @@ const CardList = () => {
 
     const showMore = () => {
         setCount((count) => count + 6);
+        setPreloader(true);
     }
 
     useEffect(() => {
@@ -36,6 +38,7 @@ const CardList = () => {
         };
 
         fetchData();
+        animation('cards_list');
     }, [count]);
 
     const cardsList = preloader ? <Spinner/> : dataState.map(item => (
@@ -54,6 +57,7 @@ const CardList = () => {
                     </div>
                     <div className="cards_list__btn_wrap">
                         <Button
+                            type='button'
                             disabledState={ !lastPageState }
                             label={data.btn}
                             onClickBtn={showMore}/>

@@ -9,70 +9,26 @@ import TestServices from "../../services/test-services";
 import Spinner from '../../components/spiner/spinner';
 import { useForm } from 'react-hook-form';
 import Success from "../success/success";
+import dataForm from '../data-form/data-form';
+import animation from "../animation/animation";
 
 const FormPost = () => {
-    const dataForm = [
-        {
-            label: 'Your name',
-            type: 'text',
-            id: 'username',
-            validations: {
-                minLength: { value: 2, message: 'The name must be at least 2 characters.' },
-                maxLength: { value: 60, message: 'The name must be a maximum of 60 characters.' },
-            },
-        },
-        {
-            label: 'Email',
-            type: 'email',
-            id: 'email',
-            validations: {
-                pattern: {
-                    value: /^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/,
-                    message: 'The email must be a valid email address.',
-                },
-            },
-        },
-        {
-            label: 'Phone',
-            type: 'tel',
-            id: 'phone',
-            validations: {
-                pattern: {
-                    value: /^[+]{0,1}380([0-9]{9})$/,
-                    message: 'The phone must match a Ukrainian number format.',
-                },
-            },
-            message: '+38 (XXX) XXX - XX - XX',
-        },
-    ];
-
     const [dataRadio, setDataRadio] = useState(null);
     const [preloader, setPreloader] = useState(true);
     const [token, setToken] = useState('');
     const [isPending, setIsPending] = useState(false);
-
-    useEffect(() => {
-        const testServices = new TestServices();
-        testServices
-            .getPositionResource()
-            .then((data) => setDataRadio(data))
-            .then(() => setPreloader(false))
-            .catch()
-
-        testServices
-            .getToken()
-            .then((data) => setToken(data.token))
-            .catch();
-    }, []);
+    const [inputFill, setInputFill] = useState(false);
+    const [errorServerMsg, setErrorServerMsg] = useState(null);
 
     const form = useForm({
         defaultValues: {
             username: '',
             email: '',
             phone: '',
-            radio: ''
+            radio: '1',
+            file: ''
         },
-        mode: 'onSubmit'
+        mode: 'onSubmit',
     })
 
     const {
@@ -86,30 +42,55 @@ const FormPost = () => {
 
     const watchedFields = watch();
 
+    useEffect(() => {
+        const testServices = new TestServices();
+        testServices
+            .getPositionResource()
+            .then((data) => setDataRadio(data))
+            .then(() => setPreloader(false))
+            .then(() => animation('form_post'))
+            .catch()
+
+        testServices
+            .getToken()
+            .then((data) => setToken(data.token))
+            .catch();
+    }, []);
+
+    const isFieldForm = (dataForm) => {
+        let arr = [];
+        dataForm.forEach(($input) => {
+            const { id } = $input;
+            arr.push(watch(id));
+        })
+        let isField = arr.every(value => value !== '');
+        const file = watchedFields.file[0];
+        setInputFill(isField && file);
+    }
+
+    useEffect(() => {
+        isFieldForm(dataForm);
+    }, [watchedFields])
+
     const radioBtns = preloader ? <Spinner/> : dataRadio.map((inputEl) => (
-        <FormRadio key={inputEl.name} dataRadio={inputEl} control={control} setValue={setValue} register={ {...register('radio')} }/>
+        <FormRadio
+            key={inputEl.name}
+            dataRadio={inputEl}
+            control={control}
+            setValue={setValue}
+            register={ {...register('radio')} }
+        />
     ))
 
     const onSubmitBtn = (data) => {
-        const formData = new FormData();
-        formData.append('name', data.username);
-        formData.append('email', data.email);
-        formData.append('phone', data.phone);
-        formData.append('position_id', watch('radio'));
-
-        const fileInput = document.querySelector('input[type="file"]');
-        if (fileInput && fileInput.files[0]) {
-            formData.append('photo', fileInput.files[0]);
-        }
-
         const testServices = new TestServices();
         testServices
-            .submitForm(formData, token)
+            .submitForm(data, token)
             .then((data) => {
                 if (data.success) {
                     setIsPending(true);
                 } else {
-                    console.log('Обробка не вдалої відповіді', data.message);
+                    setErrorServerMsg(data.message);
                 }
             })
             .catch((error) => {
@@ -117,23 +98,19 @@ const FormPost = () => {
             });
     }
 
-    const onError = (error) => {
-        console.log('Error', error);
-    }
-
     return (
         <section className='section form_post'>
             {!isPending && <div className="form_post__container">
                 <Heading label='Working with POST request'/>
-                <form className='form_post__wrap' onSubmit={handleSubmit(onSubmitBtn, onError)} noValidate>
+                <form className='form_post__wrap' onSubmit={handleSubmit(onSubmitBtn)} noValidate>
                     <div className="form_inputs__list">
                         {
                             dataForm.map((field, index) => (
                                 <FormInput
                                     key={index} field={field}
-                                    watchedFields={watchedFields}
                                     register={register}
                                     errors={errors}
+                                    watchedFields={watchedFields}
                                 />
                             ))
                         }
@@ -146,10 +123,16 @@ const FormPost = () => {
                         </div>
                     </div>
 
-                    <FormFile/>
+                    <FormFile
+                        register={register}
+                        watchedFields={watchedFields}
+                    />
 
                     <div className="form_post__btn_wrap">
-                        <Button label='Sign up' type='submit'/>
+                        {errorServerMsg && <p>{errorServerMsg}</p>}
+
+                        {!isPending && <Button label='Sign up' type='submit' disabledState={!inputFill}/>}
+                        {isPending && <Button label='Sign up' type='submit' disabledState={true}/>}
                     </div>
                 </form>
             </div>}

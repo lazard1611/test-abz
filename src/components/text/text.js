@@ -3,7 +3,7 @@ import './text.scss';
 
 const Text = ({label}) => {
     return (
-        <p className='text'>
+        <p className='text fade-anim'>
             {label}
         </p>
     )
