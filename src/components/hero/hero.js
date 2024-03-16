@@ -3,7 +3,8 @@ import Heading from "../heading/heading";
 import Text from "../text/text";
 import './hero.scss';
 import Button from "../button/button";
-import heroBG from '../../img/hero-bg.jpg'
+import heroBG from '../../img/hero-bg.jpg';
+import heroBGMob from '../../img/hero-bg-mob.jpg';
 import animation from "../animation/animation";
 
 const Hero = () => {
@@ -20,7 +21,8 @@ const Hero = () => {
         <section className='section hero'>
             <div className="hero__container">
                 <picture className='hero__bg'>
-                    <img src={heroBG} alt="hero bg"/>
+                    <source srcSet={heroBGMob} media="(max-width: 768px)" />
+                    <img src={heroBG} alt="hero bg" />
                 </picture>
 
                 <div className="hero__wrap">

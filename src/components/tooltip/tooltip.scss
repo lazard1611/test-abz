@@ -1,0 +1,38 @@
+@import '../../main';
+
+.tooltip {
+	position: relative;
+}
+
+.tooltip__text {
+	cursor: pointer;
+	overflow: hidden;
+	text-overflow: ellipsis;
+
+	&:hover + .tooltip__visible {
+		--scale: 1;
+	}
+}
+
+.tooltip__visible {
+	--scale: 0;
+	content: attr(data-tooltip);
+	z-index: 10;
+	position: absolute;
+	bottom: 16%;
+	left: 50%;
+
+	display: block;
+	padding: .3rem 1.6rem;
+	line-height: 1.62;
+	text-align: left;
+
+	color: $white;
+	background: $black87;
+
+	transition: transform 0.3s ease, color 0.3s ease;
+	transform-origin: top center;
+	transform: translate(-50%, 100%) scale(var(--scale));
+	border-radius: $glRadius;
+	will-change: scale;
+}

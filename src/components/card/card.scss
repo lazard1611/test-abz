@@ -1,6 +1,7 @@
 @import '../../main';
 
 .card {
+	position: relative;
 	padding: 2rem;
 	height: 100%;
 	text-align: center;
@@ -12,8 +13,6 @@
 	font-size: 1.6rem;
 	font-weight: 400;
 	line-height: 1.62;
-	overflow: hidden;
-	text-overflow: ellipsis;
 
 }
 
@@ -38,6 +37,9 @@
 }
 
 .card__name {
+	overflow: hidden;
+	text-overflow: ellipsis;
+
 	&:not(:last-child) {
 		margin-bottom: 2rem;
 	}
@@ -49,37 +51,4 @@
 
 .card__phone {
 
-}
-
-.card__email {
-	position: relative;
-	overflow: visible;
-	cursor: pointer;
-
-	&:after {
-		--scale: 0;
-		content: attr(data-tooltip);
-		z-index: 10;
-		position: absolute;
-		top: 0;
-		left: 50%;
-
-		display: block;
-		padding: .3rem 1.6rem;
-		line-height: 1.62;
-		text-align: left;
-
-		color: $white;
-		background: $black87;
-
-		transition: transform 0.3s ease, color 0.3s ease;
-		transform-origin: top center;
-		transform: translate(-50%, 100%) scale(var(--scale));
-		border-radius: $glRadius;
-		will-change: scale;
-	}
-
-	&:hover:after {
-		--scale: 1;
-	}
 }

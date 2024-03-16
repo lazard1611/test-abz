@@ -1,6 +1,7 @@
 import React from "react";
 import './card.scss';
 import placeholder from '../../img/placeholder.svg';
+import Tooltip from "../tooltip/tooltip";
 
 const Card = ({ userData }) => {
     const { photo, name, position, email, phone } = userData;
@@ -12,7 +13,7 @@ const Card = ({ userData }) => {
             </picture>
             <div className="card__name">{name}</div>
             <div className="card__position">{position}</div>
-            <div className="card__email" data-tooltip={email}>{email}</div>
+            <Tooltip text={email}/>
             <div className="card__phone">{phone}</div>
         </div>
     )
