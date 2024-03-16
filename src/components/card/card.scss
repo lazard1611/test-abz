@@ -7,13 +7,15 @@
 	text-align: center;
 	background-color: $white;
 	border-radius: 1rem;
+
 }
 
 .card > * {
 	font-size: 1.6rem;
 	font-weight: 400;
 	line-height: 1.62;
-
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .card__pic {
@@ -45,10 +47,15 @@
 	}
 }
 
-.card__position {
-
+.card__email {
+	display: block;
+	cursor: pointer;
 }
 
-.card__phone {
-
+.tooltip_custom {
+	border-radius: 4px;
+	padding: 0 16px;
+	font-size: 16px;
+	height: 32px;
+	line-height: 14px;
 }

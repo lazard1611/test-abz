@@ -43,7 +43,7 @@ const CardList = () => {
 
     const cardsList = preloader ? <Spinner/> : dataState.map(item => (
         <div key={item.id} className="cards_list__item">
-            <Card  userData={item} />
+            <Card  userData={item}/>
         </div>
     ))
 
